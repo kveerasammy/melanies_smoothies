@@ -14,8 +14,10 @@ st.write(
   """
 )
 
+st.write("secrets keys:", list(st.secrets.keys()))
 
 conn = st.secrets["connections"]["snowflake"]
+
 session = Session.builder.configs(conn).create()
 
 name_on_order = st.text_input('Name on Smoothie: ')
