@@ -2,6 +2,7 @@
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
+from snowflake.snowpark import Session
 
 import requests
 
@@ -13,7 +14,10 @@ st.write(
   """
 )
 
-import streamlit as st 
+
+conn = st.secrets["connections"]["snowflake"]
+session = Session.builder.configs(conn).create()
+
 name_on_order = st.text_input('Name on Smoothie: ')
 st.write('The Name on your smoothie will be:', name_on_order)
 
