@@ -6,22 +6,34 @@ from snowflake.snowpark import Session
 
 import requests
 
+import os
+from pathlib import Path
+import streamlit as st
 
-# Write directly to the app
-st.title(f":cup_with_straw: Customize your smoothie :cup_with_straw:")
-st.write(
-  """ Choose the fruits you want in your custom Smoothie!
-  """
-)
+cwd = Path.cwd()
+secrets_path = cwd / ".streamlit" / "secrets.toml"
 
-st.write("secrets keys:", list(st.secrets.keys()))
+st.write("CWD:", str(cwd))
+st.write("secrets.toml exists:", secrets_path.exists())
+st.write("secrets.toml path:", str(secrets_path))
+st.write("st.secrets keys:", list(st.secrets.keys()))
 
-conn = st.secrets["connections"]["snowflake"]
 
-session = Session.builder.configs(conn).create()
+# # Write directly to the app
+# st.title(f":cup_with_straw: Customize your smoothie :cup_with_straw:")
+# st.write(
+#   """ Choose the fruits you want in your custom Smoothie!
+#   """
+# )
 
-name_on_order = st.text_input('Name on Smoothie: ')
-st.write('The Name on your smoothie will be:', name_on_order)
+# st.write("secrets keys:", list(st.secrets.keys()))
+
+# conn = st.secrets["connections"]["snowflake"]
+
+# session = Session.builder.configs(conn).create()
+
+# name_on_order = st.text_input('Name on Smoothie: ')
+# st.write('The Name on your smoothie will be:', name_on_order)
 
 
 # session = get_active_session()
@@ -47,12 +59,12 @@ st.write('The Name on your smoothie will be:', name_on_order)
 #     if time_to_insert:
 #         session.sql(my_insert_stmt).collect()
 #         st.success('Your Smoothie is ordered!', icon="✅")
-#         st.stop()
+# #         st.stop()
 
 
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-st.text(smoothiefroot_response)
+# smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+# st.text(smoothiefroot_response)
   
-st.text(smoothiefroot_response.json())
+# st.text(smoothiefroot_response.json())
             
-sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+# sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
